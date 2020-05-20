@@ -1,0 +1,17 @@
+{
+  "ReRoutes": [
+    //DataService
+    {
+      "DownstreamPathTemplate": "/api/data/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "dataapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/data/{id}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    }
+  ]
+}

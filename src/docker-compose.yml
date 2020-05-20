@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+
+  data.service:
+    image: ${DOCKER_REGISTRY-}dataapi
+    build:
+      context: .
+      dockerfile: Services/Data/Data.API/Dockerfile
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: Services/APIGateway/APIGateway/Dockerfile
+  
