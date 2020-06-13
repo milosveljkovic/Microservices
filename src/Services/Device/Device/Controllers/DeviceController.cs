@@ -45,8 +45,10 @@ namespace Device.Controllers
         [HttpPost]
         public void Post()
         {
+            Period p = new Period();
+            p.periodValue = 12340;
             Console.WriteLine("POST PUBLISH");
-            _publisher.SendMessage("DA LI SI PRIMIO PORUKU");
+            _publisher.SendMessage(p);
         }
 
         // POST api/device/setSensorSendPeriod

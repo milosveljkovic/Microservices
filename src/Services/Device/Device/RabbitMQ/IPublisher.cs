@@ -7,6 +7,6 @@ namespace Device.RabbitMQ
 {
     public interface IPublisher
     {
-        public void SendMessage(string test);
+        public void SendMessage(object o);
     }
 }

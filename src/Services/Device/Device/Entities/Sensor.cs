@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.IO;
 using System.Globalization;
+using Device.RabbitMQ;
 
 namespace Device.Entities
 {
@@ -35,6 +36,7 @@ namespace Device.Entities
         private Timer _sendTimer;
         private CommunicationType _communicationType;
         private ModeType _modeType;
+        private Publisher _publisher;
 
         public Sensor()
         {
@@ -45,6 +47,7 @@ namespace Device.Entities
             _sensorDataList = new List<SensorData>();
             _communicationType = CommunicationType.Http;
             _modeType = ModeType.Off;
+            _publisher = new Publisher();
 
             //default_values_for_tumers
             _readPeriod = 1000;
@@ -58,17 +61,21 @@ namespace Device.Entities
 
         private async void SendTimer_ElapsedAsync(object sender, ElapsedEventArgs e)
         {
+            SensorData _sensorData = _sensorDataList[0];
             try
             {
-                if (_communicationType == CommunicationType.Http)
+                if (_communicationType != CommunicationType.Http)
                 {
-                    SensorData _sensorData = _sensorDataList[0];
                     //should put url in const! here should be url to Data Micoservice
                     await PostRequst("http://localhost:5000/weatherforecast", _sensorData);
                 }
                 else
                 {
-                    Console.WriteLine("Should implemet RabbitMQ");
+                    //RABBITMQ
+                    //IMPORTANT: _sensorData properties should be PUBLIC!!!!!!
+                    Console.WriteLine("POST PUBLISH");
+                    _publisher.SendMessage(_sensorData);
+                    _sensorDataList.RemoveAt(0);
                 }
             }
             catch

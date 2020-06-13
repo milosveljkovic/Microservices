@@ -7,15 +7,15 @@ namespace Device.Entities
 {
     public class SensorData
     {
-        private DateTime readTime;
-        private string val1;
-        private float val2;
-        private float val3;
-        private float val4;
-        private float val5;
-        private float val6;
-        private float val7;
-        private float val8;
+        public DateTime readTime;
+        public string val1;
+        public float val2;
+        public float val3;
+        public float val4;
+        public float val5;
+        public float val6;
+        public float val7;
+        public float val8;
 
         public SensorData(){}
 

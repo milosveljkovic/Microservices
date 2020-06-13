@@ -26,9 +26,10 @@ namespace Device.RabbitMQ
             Console.WriteLine(" Press [enter] to exit.");
         }
 
-        public void SendMessage(string test)
+        public void SendMessage(object o)
         {
-            var body = Encoding.UTF8.GetBytes(test);
+            //var body = Encoding.UTF8.GetBytes(test);
+            var body = ObjectSerialize.Serialize(o); 
             this._channel.BasicPublish(exchange: "logs",
                                  routingKey: "",
                                  basicProperties: null,
