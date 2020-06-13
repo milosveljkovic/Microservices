@@ -19,10 +19,12 @@ namespace Device.Controllers
     {
 
         private readonly ISensor _mySensor;
+        private readonly IPublisher _publisher;
 
-        public DeviceController(ISensor mySensor)
+        public DeviceController(ISensor mySensor, IPublisher publisher)
         {
             _mySensor = mySensor;
+            _publisher = publisher;
         }
 
         // GET: api/<DeviceController>
@@ -43,32 +45,8 @@ namespace Device.Controllers
         [HttpPost]
         public void Post()
         {
-            //kreiraj objekat
-
-            SensorData sensorData = new SensorData();
-            var json = JsonConvert.SerializeObject(sensorData);
-            var body = Encoding.UTF8.GetBytes(json);
-
-            var factory = new ConnectionFactory();// { HostName = "rabbitmq",Port=5672 };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
-
-                var message = "TEST SAMOOO";
-                //probam da saljem objekat odozgo da vidim kako ce da se ponasa zato je 
-                //zakomentarisano ovo ispod var body ...
-                //var body = Encoding.UTF8.GetBytes(message);
-                channel.BasicPublish(exchange: "logs",
-                                     routingKey: "",
-                                     basicProperties: null,
-                                     body: body);
-                Console.WriteLine(" [x] Sent {0}", message);
-            }
-
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
-            //_publisher.SendMessage("DA LI SI PRIMIO PORUKU");
+            Console.WriteLine("POST PUBLISH");
+            _publisher.SendMessage("DA LI SI PRIMIO PORUKU");
         }
 
         // POST api/device/setSensorSendPeriod

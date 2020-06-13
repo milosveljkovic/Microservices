@@ -10,23 +10,20 @@ namespace Device.RabbitMQ
 {
     public class Publisher : IPublisher
     {
-        private  ConnectionFactory _factory;
-        private  IConnection _connection;
-        private  IModel _channel;
-        private  string queueName;
-        private  EventingBasicConsumer consumer;
+        private ConnectionFactory _factory;
+        private IConnection _connection;
+        private IModel _channel;
 
-        Publisher()
+        public Publisher()
         {
-           this._factory = new ConnectionFactory() { HostName = "localhost" };
-           this._connection = _factory.CreateConnection();
+            //zakoemntarisano je za docker
+            this._factory = new ConnectionFactory();// { HostName = "localhost" };
+            //this._factory.UserName = "guest";
+            //this._factory.Password = "guest";
+            this._connection = _factory.CreateConnection();
             this._channel = _connection.CreateModel();
             _channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
-                //Console.WriteLine(" [x] Sent {0}", message);
-            
-
             Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
         }
 
         public void SendMessage(string test)

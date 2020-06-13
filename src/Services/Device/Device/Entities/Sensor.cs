@@ -88,7 +88,8 @@ namespace Device.Entities
                 if (wordsAreOk(words))
                 {
                     string _date = words[0];
-                    DateTime dt = DateTime.ParseExact(_date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    string time1 = words[1];
+                    DateTime dt = DateTime.ParseExact(_date+" "+time1, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                     //just mock datatype
                     string time = words[1];
                     float val2 = float.Parse(words[2]);
