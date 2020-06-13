@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MilosVeljkovic\\Desktop\\soa\\Microserices\\services\\APIGateway\\APIGateway\\APIGateway\\APIGateway.csproj": {}
+    "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\APIGateway\\APIGateway\\APIGateway.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MilosVeljkovic\\Desktop\\soa\\Microserices\\services\\APIGateway\\APIGateway\\APIGateway\\APIGateway.csproj": {
+    "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\APIGateway\\APIGateway\\APIGateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MilosVeljkovic\\Desktop\\soa\\Microserices\\services\\APIGateway\\APIGateway\\APIGateway\\APIGateway.csproj",
+        "projectUniqueName": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\APIGateway\\APIGateway\\APIGateway.csproj",
         "projectName": "APIGateway",
-        "projectPath": "C:\\Users\\MilosVeljkovic\\Desktop\\soa\\Microserices\\services\\APIGateway\\APIGateway\\APIGateway\\APIGateway.csproj",
-        "packagesPath": "C:\\Users\\MilosVeljkovic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MilosVeljkovic\\Desktop\\soa\\Microserices\\services\\APIGateway\\APIGateway\\APIGateway\\obj\\",
+        "projectPath": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\APIGateway\\APIGateway\\APIGateway.csproj",
+        "packagesPath": "C:\\Users\\Predrag\\.nuget\\packages\\",
+        "outputPath": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\APIGateway\\APIGateway\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\MilosVeljkovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Predrag\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

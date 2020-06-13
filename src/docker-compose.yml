@@ -6,7 +6,7 @@ services:
     image: ${DOCKER_REGISTRY-}dataapi
     build:
       context: .
-      dockerfile: Services/Data/Data.API/Dockerfile
+      dockerfile: Services/Data/DataService/Dockerfile
 
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway

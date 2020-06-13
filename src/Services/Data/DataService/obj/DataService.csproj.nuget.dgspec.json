@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Device\\Device\\Device.csproj": {}
+    "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Data\\DataService\\DataService.csproj": {}
   },
   "projects": {
-    "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Device\\Device\\Device.csproj": {
+    "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Data\\DataService\\DataService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Device\\Device\\Device.csproj",
-        "projectName": "Device",
-        "projectPath": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Device\\Device\\Device.csproj",
+        "projectUniqueName": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Data\\DataService\\DataService.csproj",
+        "projectName": "DataService",
+        "projectPath": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Data\\DataService\\DataService.csproj",
         "packagesPath": "C:\\Users\\Predrag\\.nuget\\packages\\",
-        "outputPath": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Device\\Device\\obj\\",
+        "outputPath": "D:\\Faculty\\SEM VIII\\Servisno orjentisane arhitekture\\Projekat\\Microserices\\src\\Services\\Data\\DataService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Predrag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -41,14 +41,6 @@
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.10.9, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.3, )"
-            },
-            "RabbitMQ.Client": {
-              "target": "Package",
-              "version": "[6.0.0, )"
             }
           },
           "imports": [
