@@ -49,7 +49,7 @@ namespace Device.Entities
             //default_values_for_tumers
             _readPeriod = 1000;
             _sendPeriod = 3000;
-            _readTimer = new Timer(_readPeriod); //
+            _readTimer = new Timer(_readPeriod); //ms[1000]
             _sendTimer = new Timer(_sendPeriod); //ms[3000]
 
             _readTimer.Elapsed += ReadTimer_Elapsed;
