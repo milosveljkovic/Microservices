@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Services",
+    "\\Services\\APIGateway",
+    "\\Services\\APIGateway\\APIGateway",
+    "\\Services\\Data",
+    "\\Services\\Data\\Data.API",
+    "\\Services\\Data\\Data.API\\Controllers"
+  ],
+  "SelectedNode": "\\Services\\APIGateway\\APIGateway\\routes.json",
+  "PreviewInSolutionExplorer": false
+}
