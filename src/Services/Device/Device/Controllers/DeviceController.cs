@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Device.Model;
+using Device.Entities;
 using Device.RabbitMQ;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -18,12 +18,12 @@ namespace Device.Controllers
     public class DeviceController : ControllerBase
     {
 
-        //private readonly IPublisher _publisher;
+        private readonly ISensor _mySensor;
 
-        //public DeviceController(IPublisher publisher)
-        //{
-        //    _publisher = publisher;
-        //}
+        public DeviceController(ISensor mySensor)
+        {
+            _mySensor = mySensor;
+        }
 
         // GET: api/<DeviceController>
         [HttpGet]
@@ -71,16 +71,50 @@ namespace Device.Controllers
             //_publisher.SendMessage("DA LI SI PRIMIO PORUKU");
         }
 
-        // PUT api/<DeviceController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // POST api/device/setSensorSendPeriod
+        [HttpPost("setSensorSendPeriod", Name = "setSensorSendPeriod")]
+        public ActionResult setSensorSendPeriod([FromBody]Period _period)
         {
+            if ((_period.periodValue > 0) && (_period.periodValue > _mySensor.getReadPeriod()))
+            {
+                _mySensor.setSendPeriod(_period.periodValue);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // DELETE api/<DeviceController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // POST api/device/setSensorReadPeriod
+        [HttpPost("setSensorReadPeriod", Name = "setSensorReadPeriod")]
+        public ActionResult setSensorReadPeriod([FromBody]Period _period)
         {
+            if ((_period.periodValue > 0) && (_period.periodValue < _mySensor.getSendPeriod()))
+            {
+                _mySensor.setReadPeriod(_period.periodValue);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        // POST api/device/turnOnOff
+        [HttpPost("turnOnOff", Name = "turnOnOff")]
+        public ActionResult turnOnOff([FromBody]int mode)
+        {
+            Console.WriteLine("TurnOn Of" + mode);
+            if (mode == 1 || mode == 0)
+            {
+                _mySensor.turnOnOff(mode);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
