@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataService.Data;
+using DataService.RabbitMQ;
 using DataService.Repository;
 using DataService.Settings;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +33,7 @@ namespace DataService
             services.AddControllers();
 
             #region Configuration Dependencies
+            services.AddHostedService<BackgroundSubscriber>();
             services.Configure<SensorDatabaseSettings>(Configuration.GetSection(nameof(SensorDatabaseSettings)));
             services.AddSingleton<ISensorDatabaseSettings>(sp => (ISensorDatabaseSettings)sp.GetRequiredService<IOptions<SensorDatabaseSettings>>().Value);
             #endregion

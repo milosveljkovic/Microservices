@@ -45,7 +45,7 @@ namespace Device.Entities
             string path_to_sensor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sensor_file_name);
             _streamReader = new StreamReader(path_to_sensor);
             _sensorDataList = new List<SensorData>();
-            _communicationType = CommunicationType.Http;
+            _communicationType = CommunicationType.RabbitMq;
             _modeType = ModeType.Off;
             _publisher = new Publisher();
 
@@ -64,7 +64,7 @@ namespace Device.Entities
             SensorData _sensorData = _sensorDataList[0];
             try
             {
-                if (_communicationType != CommunicationType.Http)
+                if (_communicationType == CommunicationType.Http)
                 {
                     //should put url in const! here should be url to Data Micoservice
                     await PostRequst("http://localhost:5000/weatherforecast", _sensorData);
