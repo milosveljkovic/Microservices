@@ -22,30 +22,42 @@ namespace DataService.Data
         {
             return new List<Sensor>()
             {
-                new Sensor()
-                {
-                    Date = "16/12/2006",
-                    Time = "17:22:00",
-                    Global_active_power = 4.216f,
-                    Global_reactive_power = 0.418f,
-                    Voltage = 234.84f,
-                    Global_intensity = 18.4f,
-                    Sub_metering_1 = 0,
-                    Sub_metering_2 = 1,
-                    Sub_metering_3 = 17
-                },
-                new Sensor()
-                {
-                    Date = "16/12/2006",
-                    Time = "17:23:00",
-                    Global_active_power = 5.36f,
-                    Global_reactive_power = 0.436f,
-                    Voltage = 233.84f,
-                    Global_intensity = 23f,
-                    Sub_metering_1 = 0,
-                    Sub_metering_2 = 1,
-                    Sub_metering_3 = 16
-                }
+               new Sensor()
+               {
+                   Date = new DateTime(2006,12,12,0,0,0),
+                   PM25 = 3,
+                   PM10 = 3,
+                   SO2 = 13,
+                   NO2 = 300,
+                   CO = 10,
+                   O3 = 100,
+                   Temp = -2.5f,
+                   Pres = 1021.3f
+               },
+               new Sensor()
+               {
+                   Date = new DateTime(2006,12,18,1,0,0),
+                   PM25 = 3,
+                   PM10 = 6,
+                   SO2 = 24,
+                   NO2 = 350,
+                   CO = 10,
+                   O3 = 100,
+                   Temp = -2.5f,
+                   Pres = 1021.3f
+               },
+               new Sensor()
+               {
+                   Date = new DateTime(2007,1,11,2,0,0),
+                   PM25 = 3,
+                   PM10 = 6,
+                   SO2 = 13,
+                   NO2 = 400,
+                   CO = 10,
+                   O3 = 100,
+                   Temp = -2.5f,
+                   Pres = 1021.3f
+               }
 
             };
         }

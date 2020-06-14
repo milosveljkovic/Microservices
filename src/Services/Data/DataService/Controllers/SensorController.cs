@@ -47,15 +47,6 @@ namespace DataService.Controllers
             return Ok(sensor);
         }
 
-        [Route("[action]/{date}")]
-        [HttpGet]
-        [ProducesResponseType(typeof(Sensor), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<Sensor>>> GetSensorByDate(string date)
-        {
-            var sensor = await _repository.GetSensorByDate(date);
-            return Ok(sensor);
-        }
-
         [HttpPost]
         [ProducesResponseType(typeof(Sensor), (int)HttpStatusCode.Created)]
         public async Task<ActionResult<Sensor>> CreateSensor([FromBody] Sensor sensor)

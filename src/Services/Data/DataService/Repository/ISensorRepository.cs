@@ -10,7 +10,6 @@ namespace DataService.Repository
     {
         Task<IEnumerable<Sensor>> GetSensors();
         Task<Sensor> GetSensor(string id);
-        Task<IEnumerable<Sensor>> GetSensorByDate(string date);
         Task Create(Sensor Sensor);
         Task<bool> Update(Sensor Sensor);
         Task<bool> Delete(string id);

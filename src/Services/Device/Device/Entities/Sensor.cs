@@ -69,7 +69,7 @@ namespace Device.Entities
             if (!isTresholdValue(_sensorData)){
                 try
                 {
-                    if (_communicationType != CommunicationType.Http)
+                    if (_communicationType == CommunicationType.Http)
                     {
                         //should put url in const! here should be url to Data Micoservice
                         await PostRequst("http://localhost:5000/weatherforecast", _sensorData);

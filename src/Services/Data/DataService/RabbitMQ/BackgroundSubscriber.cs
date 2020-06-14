@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
+using DataService.Entities;
+using DataService.Repository;
+using Microsoft.Extensions.Logging;
 
 namespace DataService.RabbitMQ
 {
@@ -18,6 +21,14 @@ namespace DataService.RabbitMQ
         private IModel _channel;
         private string queueName;
         private EventingBasicConsumer consumer;
+        private readonly ISensorRepository _repository;
+        private readonly ILogger<BackgroundSubscriber> _logger;
+
+        public BackgroundSubscriber(ISensorRepository repository, ILogger<BackgroundSubscriber> logger)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
 
         public void InitBackgroundDataSubscriber()
         {
@@ -42,8 +53,9 @@ namespace DataService.RabbitMQ
                 //ovo je nacin da se primi OBJEKAT, obj se stavlja u message, za sada se samo stampa
                 //ovde treba da se ubaci upisivanje u bazu jeje
                 var json = Encoding.Default.GetString(ea.Body.ToArray());
-                var message = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-                Console.WriteLine(" [x] {0}", message);
+                var message = Newtonsoft.Json.JsonConvert.DeserializeObject<Sensor>(json);
+                _repository.Create(message);
+                //Console.WriteLine(" [x] {0}", message);
             };
             this._channel.BasicConsume(queue: queueName,
                                  autoAck: true,
