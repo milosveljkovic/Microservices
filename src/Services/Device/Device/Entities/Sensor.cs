@@ -37,6 +37,8 @@ namespace Device.Entities
         private CommunicationType _communicationType;
         private ModeType _modeType;
         private Publisher _publisher;
+        private int _treshold;
+        private SensorData _previosSensorData;
 
         public Sensor()
         {
@@ -48,6 +50,8 @@ namespace Device.Entities
             _communicationType = CommunicationType.RabbitMq;
             _modeType = ModeType.Off;
             _publisher = new Publisher();
+            _treshold = 10;
+            _previosSensorData = new SensorData();
 
             //default_values_for_tumers
             _readPeriod = 1000;
@@ -62,26 +66,76 @@ namespace Device.Entities
         private async void SendTimer_ElapsedAsync(object sender, ElapsedEventArgs e)
         {
             SensorData _sensorData = _sensorDataList[0];
-            try
-            {
-                if (_communicationType != CommunicationType.Http)
+            if (!isTresholdValue(_sensorData)){
+                try
                 {
-                    //should put url in const! here should be url to Data Micoservice
-                    await PostRequst("http://localhost:5000/weatherforecast", _sensorData);
+                    if (_communicationType != CommunicationType.Http)
+                    {
+                        //should put url in const! here should be url to Data Micoservice
+                        await PostRequst("http://localhost:5000/weatherforecast", _sensorData);
+                    }
+                    else
+                    {
+                        //RABBITMQ
+                        //IMPORTANT: _sensorData properties should be PUBLIC!!!!!!
+                        Console.WriteLine("POST PUBLISH");
+                        _publisher.SendMessage(_sensorData);
+                        _previosSensorData = _sensorDataList[0];
+                        _sensorDataList.RemoveAt(0);
+                    }
                 }
-                else
+                catch (Exception error)
                 {
-                    //RABBITMQ
-                    //IMPORTANT: _sensorData properties should be PUBLIC!!!!!!
-                    Console.WriteLine("POST PUBLISH");
-                    _publisher.SendMessage(_sensorData);
-                    _sensorDataList.RemoveAt(0);
+                    Console.WriteLine("[Error]: "+error.Message);
                 }
             }
-            catch
+            else
             {
-                Console.WriteLine("Error handler in SendTimer.Elapsed");
+                Console.WriteLine("[Warning] Treshold value");
+                _previosSensorData = _sensorDataList[0];
+                _sensorDataList.RemoveAt(0);
             }
+        }
+
+        private bool isTresholdValue(SensorData sd)
+        {
+            float pm25 = (Math.Abs(_previosSensorData.PM25)*_treshold)/100;
+            if (Math.Abs(Math.Abs(_previosSensorData.PM25) - Math.Abs(sd.PM25)) < pm25)
+            {
+                return true;
+            }
+
+            float pm10 = (Math.Abs(_previosSensorData.PM10) * _treshold) / 100;
+            if (Math.Abs(Math.Abs(_previosSensorData.PM10) - Math.Abs(sd.PM10)) < pm10)
+            {
+                return true;
+            }
+
+            float so2 = (Math.Abs(_previosSensorData.SO2) * _treshold) / 100;
+            if (Math.Abs(Math.Abs(_previosSensorData.SO2) - Math.Abs(sd.SO2)) < so2)
+            {
+                return true;
+            }
+
+            float no2 = (Math.Abs(_previosSensorData.NO2) * _treshold) / 100;
+            if (Math.Abs(Math.Abs(_previosSensorData.NO2) - Math.Abs(sd.NO2)) < no2)
+            {
+                return true;
+            }
+
+            float co = (Math.Abs(_previosSensorData.C0) * _treshold) / 100;
+            if (Math.Abs(Math.Abs(_previosSensorData.C0) - Math.Abs(sd.C0)) < co)
+            {
+                return true;
+            }
+
+            float o3 = (Math.Abs(_previosSensorData.O3) * _treshold) / 100;
+            if (Math.Abs(Math.Abs(_previosSensorData.O3) - Math.Abs(sd.O3)) < o3)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void ReadTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -117,6 +171,8 @@ namespace Device.Entities
             int month = Int32.Parse(words[1]);
             int day = Int32.Parse(words[2]);
             int hour = Int32.Parse(words[3]);
+
+            DateTime date = new DateTime(year, month, day, hour, 0, 0);
             int p25 = Int32.Parse(words[4]);
             int pm10 = Int32.Parse(words[5]);
             int so2 = Int32.Parse(words[6]);
@@ -126,7 +182,7 @@ namespace Device.Entities
             float temp = float.Parse(words[10]);
             float pres = float.Parse(words[11]);
 
-            return new SensorData(year, month, day, hour, p25, pm10, so2, no2, c0, o3, temp, pres);
+            return new SensorData(date, p25, pm10, so2, no2, c0, o3, temp, pres);
 
         }
 
@@ -152,6 +208,7 @@ namespace Device.Entities
                 using var httpResponse = await _httpClient.PostAsync(_uri, _sensorDataJson);
                 if (httpResponse.StatusCode == HttpStatusCode.OK)
                 {
+                    _previosSensorData = _sensorDataList[0];
                     _sensorDataList.RemoveAt(0);
                 }
 
@@ -204,6 +261,12 @@ namespace Device.Entities
             {
                 Console.WriteLine("[Error]: turnOnOff");
             }
+        }
+
+        public void setTreshold(int newTreshold)
+        {
+            //period in ms
+            this._treshold = newTreshold;
         }
     }
 }

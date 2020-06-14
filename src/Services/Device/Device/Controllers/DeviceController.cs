@@ -96,5 +96,21 @@ namespace Device.Controllers
                 return BadRequest();
             }
         }
+
+        // POST api/device/setTreshold
+        [HttpPost("setTreshold", Name = "setTreshold")]
+        public ActionResult setTreshold([FromBody]int tresholdValue)
+        {
+            Console.WriteLine("Treshold-"+tresholdValue);
+            if (tresholdValue >0 && tresholdValue< 50)
+            {
+                _mySensor.setTreshold(tresholdValue);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
