@@ -64,7 +64,7 @@ namespace Device.Entities
             SensorData _sensorData = _sensorDataList[0];
             try
             {
-                if (_communicationType == CommunicationType.Http)
+                if (_communicationType != CommunicationType.Http)
                 {
                     //should put url in const! here should be url to Data Micoservice
                     await PostRequst("http://localhost:5000/weatherforecast", _sensorData);
@@ -88,31 +88,20 @@ namespace Device.Entities
         {
             try
             {
+               // year,month,day,hour,PM2.5,PM10,SO2,NO2,CO,O3,TEMP,PRES
+               // 2013,3,1,0,3,6,13,7,300,85,-2.3,1020.8
                 string line = _streamReader.ReadLine();
-                string[] words = line.Split(';');
-                //correct data example : 16/12/2006;17:26:00;5.374;0.498;233.290;23.000;0.000;2.000;17.000
-                //bad data example : 16/12/2006;17:26:00;?;?;?;23.000;0.000;2.000;17.00 bad data, it holds ?
+                string[] words = line.Split(',');
                 if (wordsAreOk(words))
                 {
-                    string _date = words[0];
-                    string time1 = words[1];
-                    DateTime dt = DateTime.ParseExact(_date+" "+time1, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                    //just mock datatype
-                    string time = words[1];
-                    float val2 = float.Parse(words[2]);
-                    float val3 = float.Parse(words[3]);
-                    float val4 = float.Parse(words[4]);
-                    float val5 = float.Parse(words[5]);
-                    float val6 = float.Parse(words[6]);
-                    float val7 = float.Parse(words[7]);
-                    float val8 = float.Parse(words[8]);
-                    SensorData _sensorData = new SensorData(dt, time, val2, val3, val4, val5, val6, val7, val8);
+
+                    SensorData _sensorData = getSensorDataFromWords(words);
                     _sensorDataList.Add(_sensorData);
                     Console.WriteLine("Read every 1 sec, just read--->" + _sensorData);
                 }
                 else
                 {
-                    Console.WriteLine("[Error] Something went bad with read data");
+                    Console.WriteLine("[Error] Some data properti are invalid!");
                 }
 
             }
@@ -122,12 +111,31 @@ namespace Device.Entities
             }
         }
 
+        private SensorData getSensorDataFromWords(string[] words)
+        {
+            int year = Int32.Parse(words[0]);
+            int month = Int32.Parse(words[1]);
+            int day = Int32.Parse(words[2]);
+            int hour = Int32.Parse(words[3]);
+            int p25 = Int32.Parse(words[4]);
+            int pm10 = Int32.Parse(words[5]);
+            int so2 = Int32.Parse(words[6]);
+            int no2 = Int32.Parse(words[7]);
+            int c0 = Int32.Parse(words[8]);
+            int o3 = Int32.Parse(words[9]);
+            float temp = float.Parse(words[10]);
+            float pres = float.Parse(words[11]);
+
+            return new SensorData(year, month, day, hour, p25, pm10, so2, no2, c0, o3, temp, pres);
+
+        }
+
         private bool wordsAreOk(string[] words)
         {
             int numOfWords = words.Length;
             for (int i = 0; i < numOfWords; i++)
             {
-                if (words[i].Equals("?"))
+                if (words[i].Equals("NA"))
                 {
                     return false;
                 }

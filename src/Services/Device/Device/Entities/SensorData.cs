@@ -7,29 +7,36 @@ namespace Device.Entities
 {
     public class SensorData
     {
-        public DateTime readTime;
-        public string val1;
-        public float val2;
-        public float val3;
-        public float val4;
-        public float val5;
-        public float val6;
-        public float val7;
-        public float val8;
+        public int year;
+        public int month;
+        public int day;
+        public int hour;
+        public int PM25;
+        public int PM10;
+        public int SO2;
+        public int NO2;
+        public int C0;
+        public int O3;
+        public float temp;
+        public float pres;
+
 
         public SensorData(){}
 
-        public SensorData(DateTime time, string val1, float val2, float val3, float val4, float val5, float val6, float val7, float val8)
+        public SensorData(int year,int month,int day, int hour, int pm25,int pm10,int so2, int no2,int c0,int o3,float temp,float pres)
         {
-            this.readTime = time;
-            this.val1 = val1;
-            this.val2 = val2;
-            this.val3 = val3;
-            this.val4 = val4;
-            this.val5 = val5;
-            this.val6 = val6;
-            this.val7 = val7;
-            this.val8 = val8;
+            this.year = year;
+            this.month = month;
+            this.day = day;
+            this.hour = hour;
+            this.PM25 = pm25;
+            this.PM10 = pm10;
+            this.SO2 = so2;
+            this.NO2 = no2;
+            this.C0 = c0;
+            this.O3 = o3;
+            this.temp = temp;
+            this.pres = pres;
         }
     }
 }
