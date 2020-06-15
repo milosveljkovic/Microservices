@@ -2,11 +2,42 @@ version: '3.4'
 
 services:
 
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/site:/data/db
+      #- ./data:/data/db
+    ports:
+      - 27017:27017
+
+  rabbitmq:
+    container_name: rabbitmq
+    ports:
+     - 5672:5672
+     - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password        
+    image: rabbitmq:3-management
+
   data.service:
+    restart: always
     image: ${DOCKER_REGISTRY-}dataapi
     build:
       context: .
       dockerfile: Services/Data/DataService/Dockerfile
+    depends_on:
+      - rabbitmq
+      - mongo
+
+  device.service:
+    image: ${DOCKER_REGISTRY-}deviceapi
+    build:
+      context: .
+      dockerfile: Services/Device/Device/Dockerfile
+    depends_on:
+      - rabbitmq
 
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway

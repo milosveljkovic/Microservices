@@ -6,14 +6,19 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Device/Device.csproj", "Device/"]
-RUN dotnet restore "Device/Device.csproj"
+
+#COPY ["Data/DataService/DataService/DataService.csproj", "DataService/"]
+COPY "Services/Device/Device/Device.csproj" "Services/Device/Device/Device.csproj"
+#COPY ["Data/DataService/DataService/DataService.csproj", "DataService/"]
+RUN dotnet restore "Services/Device/Device/Device.csproj"
+
 COPY . .
-WORKDIR "/src/Device"
-RUN dotnet build "Device.csproj" -c Release -o /app/build
+
+WORKDIR "/src/Services/Device/Device"
+RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Device.csproj" -c Release -o /app/publish
+RUN dotnet publish --no-restore -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

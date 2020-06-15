@@ -44,7 +44,8 @@ namespace Device.Entities
         {
             //PATH = .....\bin\Debug\netcoreapp3.1
             string sensor_file_name = "sensor.txt";
-            string path_to_sensor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sensor_file_name);
+           // string path_to_sensor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sensor_file_name);
+            string path_to_sensor="./sensor.txt";
             _streamReader = new StreamReader(path_to_sensor);
             _sensorDataList = new List<SensorData>();
             _communicationType = CommunicationType.RabbitMq;

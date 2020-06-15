@@ -9,13 +9,13 @@ WORKDIR /src
 
 
 #COPY ["Data/DataService/DataService/DataService.csproj", "DataService/"]
-COPY "Services/Data/Data.API/DataService.csproj" "Services/Data/Data.API/DataService.csproj"
+COPY "Services/Data/DataService/DataService.csproj" "Services/Data/DataService/DataService.csproj"
 #COPY ["Data/DataService/DataService/DataService.csproj", "DataService/"]
-RUN dotnet restore "Services/Data/Data.API/DataService.csproj"
+RUN dotnet restore "Services/Data/DataService/DataService.csproj"
 
 COPY . .
 
-WORKDIR "/src/Services/Data/Data.API"
+WORKDIR "/src/Services/Data/DataService"
 RUN dotnet build -c Release -o /app/build
 #RUN dotnet build "DataService/DataService.csproj" -c Release -o /app/build
 
@@ -26,4 +26,6 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DataService.dll"]
+ENTRYPOINT [ "dotnet", "DataService.dll", "watch", "run", "--no-restore", "--urls", "https://0.0.0.0:5001"]
+
+#ENTRYPOINT ["dotnet", "DataService.dll"]
