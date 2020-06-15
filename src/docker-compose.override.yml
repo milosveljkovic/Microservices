@@ -6,8 +6,16 @@ services:
     container_name: dataapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "SensorDatabaseSettings:ConnectionString=mongodb://mongo:27017"
     ports:
       - "5001:80"
+  
+  device.service:
+    container_name: deviceapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5002:80"
 
   apigateway:
     environment:
