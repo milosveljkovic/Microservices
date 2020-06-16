@@ -55,8 +55,8 @@ namespace Device.Entities
             _previosSensorData = new SensorData();
 
             //default_values_for_tumers
-            _readPeriod = 1000;
-            _sendPeriod = 3000;
+            _readPeriod = 7000;
+            _sendPeriod = 10000;
             _readTimer = new Timer(_readPeriod); //ms[1000]
             _sendTimer = new Timer(_sendPeriod); //ms[3000]
 
@@ -67,7 +67,7 @@ namespace Device.Entities
         private async void SendTimer_ElapsedAsync(object sender, ElapsedEventArgs e)
         {
             SensorData _sensorData = _sensorDataList[0];
-            if (!isTresholdValue(_sensorData)){
+            //if (!isTresholdValue(_sensorData)){
                 try
                 {
                     if (_communicationType == CommunicationType.Http)
@@ -89,13 +89,13 @@ namespace Device.Entities
                 {
                     Console.WriteLine("[Error]: "+error.Message);
                 }
-            }
+            /*}
             else
             {
                 Console.WriteLine("[Warning] Treshold value");
                 _previosSensorData = _sensorDataList[0];
                 _sensorDataList.RemoveAt(0);
-            }
+            }*/
         }
 
         private bool isTresholdValue(SensorData sd)
@@ -156,7 +156,7 @@ namespace Device.Entities
                 }
                 else
                 {
-                    Console.WriteLine("[Error] Some data properti are invalid!");
+                    Console.WriteLine("[Error] Some data property are invalid!");
                 }
 
             }

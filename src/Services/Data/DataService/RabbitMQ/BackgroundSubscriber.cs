@@ -17,6 +17,7 @@ namespace DataService.RabbitMQ
     public class BackgroundSubscriber : IHostedService
     {
         private ConnectionFactory _factory;
+        private Publisher _publisher;
         private IConnection _connection;
         private IModel _channel;
         private string queueName;
@@ -28,6 +29,7 @@ namespace DataService.RabbitMQ
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _publisher = new Publisher();
         }
 
         public void InitBackgroundDataSubscriber()
@@ -43,11 +45,11 @@ namespace DataService.RabbitMQ
             //  };
             this._connection = this._factory.CreateConnection();
             this._channel = this._connection.CreateModel();
-            this._channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
+            this._channel.ExchangeDeclare(exchange: "device-data", type: ExchangeType.Fanout);
 
             var queueName = this._channel.QueueDeclare().QueueName;
             this._channel.QueueBind(queue: queueName,
-                              exchange: "logs",
+                              exchange: "device-data",
                               routingKey: "");
 
             var consumer = new EventingBasicConsumer(this._channel);
@@ -60,7 +62,9 @@ namespace DataService.RabbitMQ
                 var json = Encoding.Default.GetString(ea.Body.ToArray());
                 var message = Newtonsoft.Json.JsonConvert.DeserializeObject<Sensor>(json);
                 _repository.Create(message);
-                //Console.WriteLine(" [x] {0}", message);
+                Console.WriteLine(" [x] {0}", message);
+                _publisher.SendMessage(message);
+
             };
             this._channel.BasicConsume(queue: queueName,
                                  autoAck: true,

@@ -36,6 +36,7 @@ namespace DataService
             services.AddHostedService<BackgroundSubscriber>();
             services.Configure<SensorDatabaseSettings>(Configuration.GetSection(nameof(SensorDatabaseSettings)));
             services.AddSingleton<ISensorDatabaseSettings>(sp => (ISensorDatabaseSettings)sp.GetRequiredService<IOptions<SensorDatabaseSettings>>().Value);
+            services.AddSingleton<IPublisher, Publisher>();
             #endregion
 
             #region Project Dependencies
