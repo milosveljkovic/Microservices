@@ -32,7 +32,7 @@ namespace Device.Controllers
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
-        }
+        }   
 
         // GET api/<DeviceController>/5
         [HttpGet("{id}")]
@@ -45,10 +45,10 @@ namespace Device.Controllers
         [HttpPost]
         public void Post()
         {
-            Period p = new Period();
-            p.periodValue = 12340;
-            Console.WriteLine("POST PUBLISH");
-            _publisher.SendMessage(p);
+            //Period p = new Period();
+            //p.periodValue = 12340;
+            //Console.WriteLine("POST PUBLISH");
+           // _publisher.SendMessage(p);
         }
 
         // POST api/device/setSensorSendPeriod
