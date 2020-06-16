@@ -39,6 +39,7 @@ namespace Device.Entities
         private Publisher _publisher;
         private int _treshold;
         private SensorData _previosSensorData;
+        private MiAirPurifier _miAirPurifier;
 
         public Sensor()
         {
@@ -53,6 +54,7 @@ namespace Device.Entities
             _publisher = new Publisher();
             _treshold = 10;
             _previosSensorData = new SensorData();
+            _miAirPurifier = new MiAirPurifier(); //default value isOn=false , cleaningStrangth=10
 
             //default_values_for_tumers
             _readPeriod = 7000;
@@ -151,6 +153,13 @@ namespace Device.Entities
                 {
 
                     SensorData _sensorData = getSensorDataFromWords(words);
+                    if (_miAirPurifier.isOn) //by default is false!
+                    {
+                        Console.WriteLine("Pre filtera" + _sensorData.C0);
+                        _sensorData = getFilteredSensorData(_sensorData);
+                        Console.WriteLine("Posle filtera" + _sensorData.C0);
+
+                    }
                     _sensorDataList.Add(_sensorData);
                     Console.WriteLine("Read every 1 sec, just read--->" + _sensorData);
                 }
@@ -164,6 +173,24 @@ namespace Device.Entities
             {
                 Console.WriteLine("[Error] " + error.Message);
             }
+        }
+
+        private SensorData getFilteredSensorData(SensorData sd)
+        {
+            float filter = 1 - (_miAirPurifier.cleaningStrangth / 100f); 
+            //filter value min 0.5, max 0.9
+            return new SensorData()
+            {
+                date = sd.date,
+                PM25 = Convert.ToInt32(sd.PM25 * filter),
+                PM10 = Convert.ToInt32(sd.PM10 * filter),
+                SO2 = Convert.ToInt32(sd.SO2 * filter),
+                NO2 = Convert.ToInt32(sd.NO2 * filter),
+                C0 = Convert.ToInt32(sd.C0 * filter),
+                O3 = Convert.ToInt32(sd.O3 * filter),
+                temp = sd.temp,
+                pres = sd.pres
+            };
         }
 
         private SensorData getSensorDataFromWords(string[] words)
@@ -268,6 +295,28 @@ namespace Device.Entities
         {
             //period in ms
             this._treshold = newTreshold;
+        }
+
+        public void turnOnOffMiAirPurifier(bool isOn)
+        {
+            if (_miAirPurifier.isOn != isOn)
+            {
+                _miAirPurifier.isOn = isOn;
+            }else
+            {
+                Console.WriteLine("Error"); 
+            }
+        }
+
+        public void setMiAirPurfierCleaningStrength(int cleaningStrength)
+        {
+            if (_miAirPurifier.isOn)
+            {
+                _miAirPurifier.cleaningStrangth = cleaningStrength;
+            }else
+            {
+                Console.WriteLine("[Error]:Mi Air Purifier is not working right now!");
+            }
         }
     }
 }

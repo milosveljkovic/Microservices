@@ -112,5 +112,43 @@ namespace Device.Controllers
                 return BadRequest();
             }
         }
+
+        // POST api/device/turnOnOffMiAirPurifier
+        [HttpPost("turnOnOffMiAirPurifier", Name = "turnOnOffMiAirPurifier")]
+        public ActionResult turnOnOffMiAirPurifier([FromBody]int isOn)
+        {
+            //isOn-1 turnOn, isOn-0 turnOff
+            Console.WriteLine("turnOnOffMiAirPurifier-" + isOn);
+            if (isOn==1)
+            {
+                _mySensor.turnOnOffMiAirPurifier(true);
+                return Ok();
+            }
+            else if(isOn==0)
+            {
+                _mySensor.turnOnOffMiAirPurifier(false);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        // POST api/device/setMiAirPurfierCleaningStrength
+        [HttpPost("setMiAirPurfierCleaningStrength", Name = "setMiAirPurfierCleaningStrength")]
+        public ActionResult setMiAirPurfierCleaningStrength([FromBody]int cleaningStrength)
+        {
+            Console.WriteLine("setMiAirPurfierCleaningStrength-" + cleaningStrength);
+            if (cleaningStrength>=10 && cleaningStrength<=50)
+            {
+                _mySensor.setMiAirPurfierCleaningStrength(cleaningStrength);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
