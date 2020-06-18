@@ -15,14 +15,14 @@ namespace DataService.RabbitMQ
         public Publisher()
         {
             //zakoemntarisano je za docker
-            //this._factory = new ConnectionFactory();// { HostName = "localhost" };
-                                                    this._factory = new ConnectionFactory()
-                                                    {
-                                                         HostName = "rabbitmq",
-                                                        UserName = "user",
-                                                        Password = "password",
-                                                        Port = 5672
-                                                    };
+            this._factory = new ConnectionFactory();// { HostName = "localhost" };
+                                                    //this._factory = new ConnectionFactory()
+                                                    //{
+                                                    //     HostName = "rabbitmq",
+                                                    //    UserName = "user",
+                                                    //    Password = "password",
+                                                    //    Port = 5672
+                                                    //};
             this._connection = _factory.CreateConnection();
             this._channel = _connection.CreateModel();
             _channel.ExchangeDeclare(exchange: "data-analytics", type: ExchangeType.Fanout);

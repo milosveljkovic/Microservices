@@ -20,7 +20,7 @@ namespace Command.Controllers
         private static readonly string DeviceURL = "http://localhost:5002/api/device";
 
         //actuator is not tested yet!
-        private static readonly string ActuatorURL = "http://localhost:5002/api/actuator";
+        private static readonly string ActuatorURL = "http://localhost:5005/api/aktuator";
         // GET: api/<Command>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -141,7 +141,7 @@ namespace Command.Controllers
         {
             try
             {
-                using var httpResponse = await PostRequst(ActuatorURL + "/sendNotification", _notification);
+                using var httpResponse = await PostRequst(ActuatorURL + "/receiveNotification", _notification);
                 if (httpResponse.StatusCode == HttpStatusCode.OK)
                 {
                     return Ok();
