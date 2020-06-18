@@ -157,6 +157,50 @@ namespace Command.Controllers
             }
         }
 
+        // POST api/command/turnOnOffMiAirPurifier
+        [HttpPost("turnOnOffMiAirPurifier", Name = "turnOnOffMiAirPurifier")]
+        public async Task<ActionResult> turnOnOffMiAirPurifier([FromBody] int isOn)
+        {   //mode 1 turnOn , mode 0 - turnOff
+            try
+            {
+                using var httpResponse = await PostRequst(DeviceURL + "/turnOnOffMiAirPurifier", isOn);
+                if (httpResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
+        }
+
+        // POST api/command/setMiAirPurfierCleaningStrength
+        [HttpPost("setMiAirPurfierCleaningStrength", Name = "setMiAirPurfierCleaningStrength")]
+        public async Task<ActionResult> setMiAirPurfierCleaningStrength([FromBody] int cleaningStrength)
+        {   //mode 1 turnOn , mode 0 - turnOff
+            try
+            {
+                using var httpResponse = await PostRequst(DeviceURL + "/setMiAirPurfierCleaningStrength", cleaningStrength);
+                if (httpResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
+        }
+
         private async Task<HttpResponseMessage> PostRequst(string _uri, Object o)
         {
             HttpClient _httpClient = new HttpClient();
