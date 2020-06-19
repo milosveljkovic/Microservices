@@ -3,15 +3,28 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastComponent } from './components/toast/toast.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    HomeComponent,
+    DashboardComponent,
+    SettingsComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
