@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Analytics.Data;
+using Analytics.Hubs;
 using Analytics.RabbitMQ;
 using Analytics.Repository;
 using Analytics.Settings;
@@ -39,6 +40,16 @@ namespace Analytics
             services.AddTransient<IDataContext, DataContext>();
             services.AddTransient<ISensorRepository, SensorRepository>();
 
+            services.AddSignalR();
+            services.AddCors( options =>
+            {
+                options.AddPolicy("AllowAny", x => x
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials());
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Analytics API", Version = "v1" });
@@ -55,11 +66,14 @@ namespace Analytics
 
             app.UseRouting();
 
+            app.UseCors("AllowAny");
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("/notification");
             });
 
             app.UseSwagger();
