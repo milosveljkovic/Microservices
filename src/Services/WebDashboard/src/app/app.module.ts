@@ -9,7 +9,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastComponent } from './components/toast/toast.component';
-
+import { CriticalDataComponent } from './pages/critical-data/critical-data.component';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [
@@ -18,13 +19,15 @@ import { ToastComponent } from './components/toast/toast.component';
     HomeComponent,
     DashboardComponent,
     SettingsComponent,
-    ToastComponent
+    ToastComponent,
+    CriticalDataComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    MomentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

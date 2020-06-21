@@ -1,0 +1,35 @@
+<div class="container">
+  <h2 class="my-3 text-center">
+    Critical data informations
+  </h2>
+  <div>
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">PM2.5</th>
+          <th scope="col">PM10</th>
+          <th scope="col">SO2</th>
+          <th scope="col">NO2</th>
+          <th scope="col">CO</th>
+          <th scope="col">O3</th>
+          <th scope="col">Temperature</th>
+          <th scope="col">Pressure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sensor of sensors | async" >
+          <td scope="col">{{sensor.date | amDateFormat: 'YYYY-MM-DD HH:mm'}}</td>
+          <td scope="col">{{sensor.pM25}}</td>
+          <td scope="col">{{sensor.pM10}}</td>
+          <td scope="col">{{sensor.sO2}}</td>
+          <td scope="col">{{sensor.nO2}}</td>
+          <td scope="col">{{sensor.co}}</td>
+          <td scope="col">{{sensor.o3}}</td>
+          <td scope="col">{{sensor.temp}}</td>
+          <td scope="col">{{sensor.pres}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

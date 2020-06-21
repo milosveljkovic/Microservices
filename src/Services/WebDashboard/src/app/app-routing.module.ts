@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { CriticalDataComponent } from './pages/critical-data/critical-data.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: "dashboard",
     component: DashboardComponent
+  },
+  {
+    path: "critical-data",
+    component: CriticalDataComponent
   },
   {
     path: "settings",
