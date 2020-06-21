@@ -6,14 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Command/Command.csproj", "Command/"]
-RUN dotnet restore "Command/Command.csproj"
+
+COPY "Services/Command/Command/Command.csproj" "Services/Command/Command/Command.csproj"
+RUN dotnet restore "Services/Command/Command/Command.csproj"
+
 COPY . .
-WORKDIR "/src/Command"
-RUN dotnet build "Command.csproj" -c Release -o /app/build
+
+WORKDIR "/src/Services/Command/Command"
+RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Command.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

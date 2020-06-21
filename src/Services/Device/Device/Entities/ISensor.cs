@@ -15,5 +15,9 @@ namespace Device.Entities
         void setTreshold(int newTreshold); //min 1 max 49
         void turnOnOffMiAirPurifier(bool isOn);
         void setMiAirPurfierCleaningStrength(int cleaningStrength);  //max 50, min 10
+         int getIsOnSensor();
+        int getIsMiAirPurfierOn();
+        int getMiAirPurfierCleaningStrength();
+        int getTreshold();
     }
 }

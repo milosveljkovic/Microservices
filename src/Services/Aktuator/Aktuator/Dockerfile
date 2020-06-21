@@ -6,14 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Aktuator/Aktuator.csproj", "Aktuator/"]
-RUN dotnet restore "Aktuator/Aktuator.csproj"
+
+COPY "Services/Aktuator/Aktuator/Aktuator.csproj" "Services/Aktuator/Aktuator/Aktuator.csproj"
+RUN dotnet restore "Services/Aktuator/Aktuator/Aktuator.csproj"
+
 COPY . .
-WORKDIR "/src/Aktuator"
-RUN dotnet build "Aktuator.csproj" -c Release -o /app/build
+
+WORKDIR "/src/Services/Aktuator/Aktuator"
+RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Aktuator.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

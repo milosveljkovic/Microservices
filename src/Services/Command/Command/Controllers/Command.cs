@@ -18,9 +18,12 @@ namespace Command.Controllers
     {
 
         private static readonly string DeviceURL = "http://localhost:5002/api/device";
-
-        //actuator is not tested yet!
         private static readonly string ActuatorURL = "http://localhost:5005/api/aktuator";
+
+        //docker
+        //private static readonly string DeviceURL = "http://172.17.0.1:5002/api/device";
+        //private static readonly string ActuatorURL = "http://172.17.0.1:5005/api/aktuator";
+
         // GET: api/<Command>
         [HttpGet]
         public IEnumerable<string> Get()

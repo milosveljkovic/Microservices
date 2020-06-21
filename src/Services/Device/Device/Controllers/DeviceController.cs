@@ -27,20 +27,7 @@ namespace Device.Controllers
             _publisher = publisher;
         }
 
-        // GET: api/<DeviceController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }   
-
-        // GET api/<DeviceController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
+       
         // POST api/<DeviceController>
         [HttpPost]
         public void Post()
@@ -149,6 +136,19 @@ namespace Device.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpGet]
+        public ActionResult Get()
+        {
+            Settings _settings = new Settings();
+            _settings.readPeriod = _mySensor.getReadPeriod();
+            _settings.sendPeriod = _mySensor.getSendPeriod();
+            _settings.isOnSensor = _mySensor.getIsOnSensor();
+            _settings.isOnMiAirPurfier = _mySensor.getIsMiAirPurfierOn();
+            _settings.cleaningStrengthMiAirPurfier = _mySensor.getMiAirPurfierCleaningStrength();
+            _settings.treshold = _mySensor.getTreshold();
+            return Ok(_settings);
         }
     }
 }

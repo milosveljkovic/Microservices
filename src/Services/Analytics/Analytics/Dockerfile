@@ -6,14 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Analytics/Analytics.csproj", "Analytics/"]
-RUN dotnet restore "Analytics/Analytics.csproj"
+
+COPY "Services/Analytics/Analytics/Analytics.csproj" "Services/Analytics/Analytics/Analytics.csproj"
+RUN dotnet restore "Services/Analytics/Analytics/Analytics.csproj"
+
 COPY . .
-WORKDIR "/src/Analytics"
-RUN dotnet build "Analytics.csproj" -c Release -o /app/build
+
+WORKDIR "/src/Services/Analytics/Analytics"
+RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Analytics.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

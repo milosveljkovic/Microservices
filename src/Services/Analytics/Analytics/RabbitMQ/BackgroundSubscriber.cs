@@ -25,6 +25,10 @@ namespace Analytics.RabbitMQ
         private readonly ISensorRepository _repository;
         private readonly ILogger<BackgroundSubscriber> _logger;
         string urlController = "http://localhost:5004/api/command/sendNotification";
+        
+        //docker
+        //string urlController = "http://172.17.0.1:5004/api/command/sendNotification";
+
 
         public BackgroundSubscriber(ISensorRepository repository, ILogger<BackgroundSubscriber> logger)
         {

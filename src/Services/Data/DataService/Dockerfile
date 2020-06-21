@@ -26,6 +26,6 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT [ "dotnet", "DataService.dll", "watch", "run", "--no-restore", "--urls", "https://0.0.0.0:5001"]
+ENTRYPOINT [ "dotnet", "DataService.dll"]
 
 #ENTRYPOINT ["dotnet", "DataService.dll"]

@@ -2,7 +2,7 @@
   "ReRoutes": [
     //DataService
     {
-      "DownstreamPathTemplate": "/api/data/{id}",
+      "DownstreamPathTemplate": "/api/sensor",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -10,8 +10,94 @@
           "Port": "80"
         }
       ],
-      "UpstreamPathTemplate": "/data/{id}",
-      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+      "UpstreamPathTemplate": "/dataservice/sensor",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    //DeviceService
+    {
+      "DownstreamPathTemplate": "/api/device",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "deviceapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/device/getSensorSettings",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    //CommandService
+    {
+      "DownstreamPathTemplate": "/api/command/setSensorSendPeriod",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "commandapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/command/setSensorSendPeriod",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/command/setSensorReadPeriod",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "commandapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/command/setSensorReadPeriod",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/command/turnOnOff",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "commandapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/command/turnOnOff",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/command/setTreshold",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "commandapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/command/setTreshold",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/command/turnOnOffMiAirPurifier",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "commandapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/command/turnOnOffMiAirPurifier",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/command/setMiAirPurfierCleaningStrength",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "commandapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/command/setMiAirPurfierCleaningStrength",
+      "UpstreamHttpMethod": [ "POST" ]
     }
   ]
 }

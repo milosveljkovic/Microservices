@@ -318,5 +318,37 @@ namespace Device.Entities
                 Console.WriteLine("[Error]:Mi Air Purifier is not working right now!");
             }
         }
+
+        public int getIsOnSensor()
+        {
+            if (this._modeType == ModeType.Off)
+            {
+                return 0;
+            }else
+            {
+                return 1;
+            }
+        }
+
+        public int getIsMiAirPurfierOn()
+        {
+            if (_miAirPurifier.isOn)
+            {
+                return 1;
+            }else
+            {
+                return 0;
+            }
+        }
+
+        public int getMiAirPurfierCleaningStrength()
+        {
+            return this._miAirPurifier.cleaningStrangth;
+        }
+
+        public int getTreshold()
+        {
+            return this._treshold;
+        }
     }
 }

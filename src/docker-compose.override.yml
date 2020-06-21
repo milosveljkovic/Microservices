@@ -16,6 +16,30 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5002:80"
+    depends_on:
+      - command.service
+
+  analytics.service:
+    container_name: analyticsapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "SensorDatabaseSettings:ConnectionString=mongodb://mongo:27017"
+    ports:
+      - "5003:80"
+
+  command.service:
+    container_name: commandapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5004:80"
+
+  aktuator.service:
+    container_name: aktuatorapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5005:80"
 
   apigateway:
     environment:
