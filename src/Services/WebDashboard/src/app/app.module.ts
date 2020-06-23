@@ -11,6 +11,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastComponent } from './components/toast/toast.component';
 import { CriticalDataComponent } from './pages/critical-data/critical-data.component';
 import { MomentModule } from 'ngx-moment';
+import { StoreModule } from '@ngrx/store';
+import { rootReducer } from './store/reducers/root.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { SettingsEffect } from './store/effects/settings.effects';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,12 @@ import { MomentModule } from 'ngx-moment';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    MomentModule
+    MomentModule,
+    StoreModule.forRoot(rootReducer),
+    EffectsModule.forRoot([SettingsEffect]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

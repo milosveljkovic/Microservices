@@ -2,7 +2,7 @@
   <h2 class="my-3 text-center">
     Critical data informations
   </h2>
-  <div>
+  <div class="table-responsive">>
     <table class="table table-striped mt-4">
       <thead>
         <tr>
@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let sensor of sensors | async" >
-          <td scope="col">{{sensor.date | amDateFormat: 'YYYY-MM-DD HH:mm'}}</td>
+          <td scope="col">{{sensor.date | amDateFormat: 'DD-MM-YYYY HH:mm'}}</td>
           <td scope="col">{{sensor.pM25}}</td>
           <td scope="col">{{sensor.pM10}}</td>
           <td scope="col">{{sensor.sO2}}</td>

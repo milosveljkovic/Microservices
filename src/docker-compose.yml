@@ -47,7 +47,6 @@ services:
     depends_on:
       - rabbitmq
       - mongo
-      - data.service
 
 
   command.service:
@@ -55,17 +54,12 @@ services:
     build:
       context: .
       dockerfile: Services/Command/Command/Dockerfile
-    depends_on:
-      - apigateway
-      - analytics.service
   
   aktuator.service:
     image: ${DOCKER_REGISTRY-}aktuatorapi
     build:
       context: .
       dockerfile: Services/Aktuator/Aktuator/Dockerfile
-    depends_on:
-      - command.service
 
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,6 +22,9 @@
     "@angular/router": "~9.1.11",
     "@aspnet/signalr": "^1.1.4",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "@ngrx/effects": "^9.2.0",
+    "@ngrx/store": "^9.2.0",
+    "@ngrx/store-devtools": "^9.2.0",
     "bootstrap": "^4.5.0",
     "moment": "^2.27.0",
     "ngx-moment": "^4.0.1",

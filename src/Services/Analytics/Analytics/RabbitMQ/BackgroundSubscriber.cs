@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Analytics.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Analytics.RabbitMQ
 {
@@ -24,29 +26,31 @@ namespace Analytics.RabbitMQ
         private EventingBasicConsumer consumer;
         private readonly ISensorRepository _repository;
         private readonly ILogger<BackgroundSubscriber> _logger;
-        string urlController = "http://localhost:5004/api/command/sendNotification";
+        private IHubContext<MessageHub> _messageHubContext;
+        //string urlController = "http://localhost:5004/api/command/sendNotification";
         
         //docker
-        //string urlController = "http://172.17.0.1:5004/api/command/sendNotification";
+        string urlController = "http://172.17.0.1:5004/api/command/sendNotification";
 
 
-        public BackgroundSubscriber(ISensorRepository repository, ILogger<BackgroundSubscriber> logger)
+        public BackgroundSubscriber(ISensorRepository repository, ILogger<BackgroundSubscriber> logger, IHubContext<MessageHub> messageHubContext)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _messageHubContext = messageHubContext ?? throw new ArgumentNullException(nameof(messageHubContext));
         }
 
         public void InitBackgroundDataSubscriber()
         {
             //ovo sto je zakomentarisano je za docker
-            this._factory = new ConnectionFactory() { HostName = "localhost" }; //{ HostName = "rabbitmq", Port = 5672  };
-            //this._factory = new ConnectionFactory()
-            //{
-            //       HostName = "rabbitmq",
-            //     UserName = "user",
-            //      Password = "password",
-            //     Port = 5672
-            //  };
+            //this._factory = new ConnectionFactory() { HostName = "localhost" }; //{ HostName = "rabbitmq", Port = 5672  };
+            this._factory = new ConnectionFactory()
+            {
+                   HostName = "rabbitmq",
+                 UserName = "user",
+                  Password = "password",
+                 Port = 5672
+              };
             this._connection = this._factory.CreateConnection();
             this._channel = this._connection.CreateModel();
             this._channel.ExchangeDeclare(exchange: "data-analytics", type: ExchangeType.Fanout);
@@ -97,6 +101,7 @@ namespace Analytics.RabbitMQ
             if (s.PM25 > 250 || s.PM10 > 430 || s.O3 > 748 || s.CO > 34000 || s.NO2 > 400 || s.SO2 > 1600)
             {
                 await _repository.Create(s);
+                _messageHubContext.Clients.All.SendAsync("send", s);
             }
 
             if (s.PM25 >= 91 && s.PM25 <= 120)

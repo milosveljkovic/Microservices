@@ -29,6 +29,16 @@ namespace Device
             services.AddSingleton<IPublisher, Publisher>();
             services.AddSingleton<ISensor, Sensor>();
             services.AddControllers();
+
+            services.AddCors( options =>
+            {
+                options.AddPolicy("AllowAny", x => x
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +50,8 @@ namespace Device
             }
 
             app.UseRouting();
+
+            app.UseCors("AllowAny");
 
             app.UseAuthorization();
 

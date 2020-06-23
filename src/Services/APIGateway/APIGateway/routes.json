@@ -98,6 +98,19 @@
       ],
       "UpstreamPathTemplate": "/command/setMiAirPurfierCleaningStrength",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    //Analytics
+    {
+      "DownstreamPathTemplate": "/api/sensor",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "analyticsapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/analytics/sensor",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ]
 }

@@ -16,8 +16,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5002:80"
-    depends_on:
-      - command.service
 
   analytics.service:
     container_name: analyticsapi
@@ -46,5 +44,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - data.service
+      - device.service
+      - command.service
+      - analytics.service
+      - aktuator.service
     ports:
       - "8000:80"

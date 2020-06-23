@@ -17,12 +17,12 @@ namespace Command.Controllers
     public class Command : ControllerBase
     {
 
-        private static readonly string DeviceURL = "http://localhost:5002/api/device";
-        private static readonly string ActuatorURL = "http://localhost:5005/api/aktuator";
+        //private static readonly string DeviceURL = "http://localhost:5002/api/device";
+        //private static readonly string ActuatorURL = "http://localhost:5005/api/aktuator";
 
         //docker
-        //private static readonly string DeviceURL = "http://172.17.0.1:5002/api/device";
-        //private static readonly string ActuatorURL = "http://172.17.0.1:5005/api/aktuator";
+        private static readonly string DeviceURL = "http://172.17.0.1:5002/api/device";
+        private static readonly string ActuatorURL = "http://172.17.0.1:5005/api/aktuator";
 
         // GET: api/<Command>
         [HttpGet]

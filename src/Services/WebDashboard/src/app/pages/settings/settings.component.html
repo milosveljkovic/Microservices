@@ -4,50 +4,45 @@
   </h2>
   <div class="row mt-5">
     <div class="col-7 pr-5">
-      <form>
         <div class="form-group">
           <div class="custom-control custom-switch mb-4">
-            <input type="checkbox" class="custom-control-input" id="customSwitch1" (click)="this.sensors_enabled = !this.sensors_enabled">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1" (change)="this.sensors_enabled = !this.sensors_enabled; this.turnOnOffSensor(this.sensors_enabled?1:0)" [value]="this.settings.isOnSensor==1?true:false">
             <label class="custom-control-label" for="customSwitch1">Turn on/off sensors</label>
           </div>
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Reading speed</label>
           <div class="d-flex">
-            <input type="number" class="form-control" id="readingSpeed" [disabled]="!this.sensors_enabled">
-            <button type="submit" class="btn btn-primary ml-2" [disabled]="!this.sensors_enabled">Add</button>
+            <input type="number" class="form-control" id="readingSpeed" step="1000" [disabled]="!this.sensors_enabled" [value]="this.settings.readPeriod" #read >
+            <button type="submit" class="btn btn-primary ml-2" [disabled]="!this.sensors_enabled" (click)="this.setReadPeriod(read.value)">Add</button>
           </div>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Writing speed</label>
           <div class="d-flex">
-            <input type="number" class="form-control" id="writingSpeed" [disabled]="!this.sensors_enabled">
-            <button type="submit" class="btn btn-primary ml-2" [disabled]="!this.sensors_enabled">Add</button>
+            <input type="number" class="form-control" id="writingSpeed" step="1000" [disabled]="!this.sensors_enabled" [value]="this.settings.sendPeriod" #send>
+            <button type="submit" class="btn btn-primary ml-2" [disabled]="!this.sensors_enabled" (click)="this.setSendPeriod(send.value)">Add</button>
           </div>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Trashold value</label>
           <div class="d-flex">
-            <input type="number" class="form-control" id="trashold" [disabled]="!this.sensors_enabled">
-            <button type="submit" class="btn btn-primary ml-2" [disabled]="!this.sensors_enabled">Add</button>
+            <input type="number" class="form-control" id="trashold" min="1" max="49" [disabled]="!this.sensors_enabled" [value]="this.settings.treshold" #tresh>
+            <button type="submit" class="btn btn-primary ml-2" [disabled]="!this.sensors_enabled" (click)="this.setTreshold(tresh.value)">Add</button>
           </div>
         </div>
-      </form>
     </div>
 
     <div class="col-5 pl-5">
-      <form>
         <div class="form-group">
           <div class="custom-control custom-switch mb-4">
-            <input type="checkbox" class="custom-control-input" id="customSwitch2">
-            <label class="custom-control-label" for="customSwitch2" (click)="this.xiaomi_enabled = !this.xiaomi_enabled">Turn on/off xiaomi filter</label>
+            <input type="checkbox" class="custom-control-input" id="customSwitch2" (change)="this.xiaomi_enabled = !this.xiaomi_enabled; this.turnOnOffXiaomi(this.xiaomi_enabled?1:0)" [value]="this.xiaomi_enabled">
+            <label class="custom-control-label" for="customSwitch2">Turn on/off xiaomi filter</label>
           </div>
-          <label for="exampleInputEmail1">Speed 3</label>
-          <input type="range" class="custom-range" min="10" max="50" id="exampleInputEmail1" [disabled]="!this.xiaomi_enabled">
+          <label for="exampleInputEmail1">Mi Air Purfier Cleaning Strength</label>
+          <input type="number" class="form-control" min="10" max="50" id="exampleInputEmail1" [disabled]="!this.xiaomi_enabled" [value]="this.settings.cleaningStrengthMiAirPurfier" #xiamoi>
         </div>
-        
-        <button type="submit" class="btn btn-secondary mt-2" [disabled]="!this.xiaomi_enabled">Save</button>
-      </form>
+        <button type="submit" class="btn btn-secondary mt-2" [disabled]="!this.xiaomi_enabled" (click)="this.setXiaomiStrength(xiamoi.value)">Save</button>
     </div>
   </div>
 </div>

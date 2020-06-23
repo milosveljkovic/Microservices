@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { ToastService } from './services/toast.service';
+import { Sensor } from './models/Sensor';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent implements OnInit {
 
   title = 'WebDashboard';
   private _connection: HubConnection;
+  sensor : Sensor;
 
   constructor(public toastService: ToastService) {}
 
@@ -23,7 +25,8 @@ export class AppComponent implements OnInit {
       .catch(err => console.log('Error while establishing connection :('));
 
     this._connection.on('send', data => {
-      this.showCustomToast(data);
+      this.sensor = data;
+      this.showCustomToast('PM2.5-'+this.sensor.pM25+'(ug/m^3) , PM10-'+this.sensor.pM10+'(ug/m^3)');
     })
   }
 

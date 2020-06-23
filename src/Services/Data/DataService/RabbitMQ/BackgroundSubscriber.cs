@@ -35,14 +35,14 @@ namespace DataService.RabbitMQ
         public void InitBackgroundDataSubscriber()
         {
             //ovo sto je zakomentarisano je za docker
-            this._factory = new ConnectionFactory() { HostName = "localhost" }; //{ HostName = "rabbitmq", Port = 5672  };
-            //this._factory = new ConnectionFactory()
-            //{
-            //       HostName = "rabbitmq",
-            //     UserName = "user",
-            //    Password = "password",
-            //     Port = 5672
-            //  };
+            //this._factory = new ConnectionFactory() { HostName = "localhost" }; //{ HostName = "rabbitmq", Port = 5672  };
+            this._factory = new ConnectionFactory()
+            {
+                HostName = "rabbitmq",
+                UserName = "user",
+                Password = "password",
+                Port = 5672
+              };
             this._connection = this._factory.CreateConnection();
             this._channel = this._connection.CreateModel();
             this._channel.ExchangeDeclare(exchange: "device-data", type: ExchangeType.Fanout);
