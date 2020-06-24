@@ -68,6 +68,7 @@ namespace Device.Entities
 
         private async void SendTimer_ElapsedAsync(object sender, ElapsedEventArgs e)
         {
+            if(_sensorDataList.Count>0){
             SensorData _sensorData = _sensorDataList[0];
             //if (!isTresholdValue(_sensorData)){
                 try
@@ -94,6 +95,9 @@ namespace Device.Entities
                 _previosSensorData = _sensorDataList[0];
                 _sensorDataList.RemoveAt(0);
             }*/
+            }else {
+                Console.WriteLine("[Warning] There is no data for sending....");
+            }
         }
 
         private bool isTresholdValue(SensorData sd)
