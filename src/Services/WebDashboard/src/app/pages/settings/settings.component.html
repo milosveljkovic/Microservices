@@ -6,7 +6,12 @@
     <div class="col-7 pr-5">
         <div class="form-group">
           <div class="custom-control custom-switch mb-4">
-            <input type="checkbox" class="custom-control-input" id="customSwitch1" (change)="this.sensors_enabled = !this.sensors_enabled; this.turnOnOffSensor(this.sensors_enabled?1:0)" [value]="this.settings.isOnSensor==1?true:false">
+            <input type="checkbox"
+             class="custom-control-input"
+              id="customSwitch1"
+              (change)="this.sensors_enabled = !this.sensors_enabled; this.turnOnOffSensor(this.sensors_enabled?1:0)" 
+              [checked]="this.settings.isOnSensor===1?true:false"
+            >
             <label class="custom-control-label" for="customSwitch1">Turn on/off sensors</label>
           </div>
         </div>
@@ -36,7 +41,11 @@
     <div class="col-5 pl-5">
         <div class="form-group">
           <div class="custom-control custom-switch mb-4">
-            <input type="checkbox" class="custom-control-input" id="customSwitch2" (change)="this.xiaomi_enabled = !this.xiaomi_enabled; this.turnOnOffXiaomi(this.xiaomi_enabled?1:0)" [value]="this.xiaomi_enabled">
+            <input type="checkbox" 
+            class="custom-control-input"
+            id="customSwitch2"
+            (change)="this.xiaomi_enabled = !this.xiaomi_enabled; this.turnOnOffXiaomi(this.xiaomi_enabled?1:0)"
+            [checked]="this.settings.isOnMiAirPurfier===1?true:false">
             <label class="custom-control-label" for="customSwitch2">Turn on/off xiaomi filter</label>
           </div>
           <label for="exampleInputEmail1">Mi Air Purfier Cleaning Strength</label>

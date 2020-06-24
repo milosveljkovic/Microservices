@@ -20,11 +20,16 @@ export class SettingsComponent implements OnInit {
   period : Period;
 
   constructor(private settingService : SettingsService, private store: Store<State>) { 
-    this.store.select('settings').subscribe(x=>this.settings = x);
+    this.store.select('settings').subscribe(settings=>{
+      this.settings = settings
+      this.xiaomi_enabled=this.settings.isOnMiAirPurfier===1?true:false
+      this.sensors_enabled=this.settings.isOnSensor===1?true:false
+    });
   }
 
   ngOnInit() {
     this.store.dispatch(new GetSettingsRequested());
+    
   }
 
   turnOnOffSensor(val) {
