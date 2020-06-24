@@ -72,10 +72,10 @@ namespace DataService.Controllers
         [Route("[action]")]
         [HttpGet]
         [ProducesResponseType(typeof(Sensor), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<Sensor>>> GetSensorsBetweenDates([FromBody] Dates dates)
+        public async Task<ActionResult<IEnumerable<Sensor>>> GetSensorsBetweenDates([FromBody]Filter filter)
         {
 
-            var sensors = await _repository.GetSensorsBetweenDate(dates.DateFrom,dates.DateTo);
+            var sensors = await _repository.GetSensorsBetweenDate(filter.DateFrom, filter.DateTo, filter.PM25, filter.PM10, filter.SO2, filter.NO2, filter.O3, filter.CO);
             return Ok(sensors);
         }
     }

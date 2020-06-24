@@ -50,20 +50,27 @@ namespace DataService.Repository
                            .ToListAsync();
         }
 
-        public async Task<IEnumerable<Sensor>> GetSensorsBetweenDate(string date1, string date2)
+        public async Task<IEnumerable<Sensor>> GetSensorsBetweenDate(string date1, string date2,int pm25,int pm10,int so2,int no2,int o3,int co)
         {
             string[] dt1 = date1.Split('-');
             string[] dt2 = date2.Split('-');
             int[] nums1 = dt1.Select(int.Parse).ToArray();
             int[] nums2 = dt2.Select(int.Parse).ToArray();
 
-            DateTime d1 = new DateTime(nums1[2], nums1[1], nums1[0]);
-            DateTime d2 = new DateTime(nums2[2], nums2[1], nums2[0]);
+            DateTime d1 = new DateTime(nums1[0], nums1[1], nums1[2]);
+            DateTime d2 = new DateTime(nums2[0], nums2[1], nums2[2]);
 
             var builder = Builders<Sensor>.Filter;
 
             var filter = builder.Gte(sensor => sensor.Date, d1) &
-                builder.Lte(sensor => sensor.Date, d2);
+                         builder.Lte(sensor => sensor.Date, d2) &
+                         builder.Gte(sensor => sensor.PM25, pm25) &
+                         builder.Gte(sensor => sensor.PM10, pm10) &
+                         builder.Gte(sensor => sensor.SO2, so2) &
+                         builder.Gte(sensor => sensor.NO2, no2) &
+                         builder.Gte(sensor => sensor.O3, o3) &
+                         builder.Gte(sensor => sensor.CO, co);
+
             return await _context
                            .Sensors
                            .Find(filter)

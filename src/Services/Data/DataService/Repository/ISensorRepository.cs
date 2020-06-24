@@ -13,6 +13,6 @@ namespace DataService.Repository
         Task Create(Sensor Sensor);
         Task<bool> Update(Sensor Sensor);
         Task<bool> Delete(string id);
-        Task<IEnumerable<Sensor>> GetSensorsBetweenDate(string date1, string date2);
+        Task<IEnumerable<Sensor>> GetSensorsBetweenDate(string date1, string date2, int pm25, int pm10, int so2, int no2, int o3, int co);
     }
 }

@@ -13,6 +13,18 @@
       "UpstreamPathTemplate": "/dataservice/sensor",
       "UpstreamHttpMethod": [ "GET" ]
     },
+    {
+      "DownstreamPathTemplate": "/api/sensor/GetSensorsBetweenDates",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "dataapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/dataservice/getFilteredData",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
     //DeviceService
     {
       "DownstreamPathTemplate": "/api/device",
