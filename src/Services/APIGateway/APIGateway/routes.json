@@ -23,7 +23,7 @@
         }
       ],
       "UpstreamPathTemplate": "/dataservice/getFilteredData",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "POST" ]
     },
     //DeviceService
     {

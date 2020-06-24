@@ -4,9 +4,9 @@ export interface Sensor {
     pM25: number;
     pM10: number;
     sO2: number;
-    nO2?: number;
-    co?: number;
-    o3?: number;
-    temp?: number;
-    pres?: number;
+    nO2: number;
+    co: number;
+    o3: number;
+    temp: number;
+    pres: number;
 }

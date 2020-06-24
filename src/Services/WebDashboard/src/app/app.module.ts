@@ -16,6 +16,8 @@ import { rootReducer } from './store/reducers/root.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SettingsEffect } from './store/effects/settings.effects';
+import { SensorsEffects } from './store/effects/sensors.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,10 +36,11 @@ import { SettingsEffect } from './store/effects/settings.effects';
     NgbModule,
     MomentModule,
     StoreModule.forRoot(rootReducer),
-    EffectsModule.forRoot([SettingsEffect]),
+    EffectsModule.forRoot([SettingsEffect, SensorsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25
-    })
+    }),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

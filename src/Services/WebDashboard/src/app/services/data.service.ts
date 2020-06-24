@@ -3,7 +3,8 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Sensor } from '../models/Sensor';
 
-const url = "http://localhost:5003/api/Sensor";
+const urlAnalytics = "http://localhost:8000/analytics/sensor";
+const urlData = "/dataservice";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,11 +17,20 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class CriticalDataService {
+export class DataService {
 
   constructor(private http: HttpClient) { }
 
   public geCriticalData(): Observable<Sensor[]> {
-    return this.http.get<Sensor[]>(url);
+    return this.http.get<Sensor[]>(urlAnalytics);
   }
+
+  public getSensors() : Observable<Sensor[]> {
+    return this.http.get<Sensor[]>(urlData + '/sensor');
+  }
+
+  public filterData(filter) : Observable<Sensor[]> {
+    return this.http.post<Sensor[]>(urlData + '/getFilteredData', filter, httpOptions);
+  }
+
 }

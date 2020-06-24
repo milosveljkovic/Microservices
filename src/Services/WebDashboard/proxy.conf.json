@@ -1,7 +1,12 @@
 {
-"/command/*": {
-    "target":"http://localhost:8000",
-    "secure":false,
-    "changeOrigin": true
+    "/command/*": {
+        "target":"http://localhost:8000",
+        "secure":false,
+        "changeOrigin": true
+    },
+    "/dataservice/*": {
+        "target":"http://localhost:8000",
+        "secure":false,
+        "changeOrigin": true
     }
 }  

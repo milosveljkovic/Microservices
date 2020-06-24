@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CriticalDataService } from 'src/app/services/critical-data.service';
+import { DataService } from 'src/app/services/data.service';
 import { Sensor } from 'src/app/models/Sensor';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { GetCriticalSensorsRequested } from 'src/app/store/actions/sensors.actions';
+import { State } from 'src/app/store/reducers/root.reducer';
 
 
 @Component({
@@ -11,12 +14,16 @@ import { Observable } from 'rxjs';
 })
 export class CriticalDataComponent implements OnInit {
 
-  sensors: Observable<Sensor[]>;
+  sensors: Sensor[];
 
-  constructor(private criticalService : CriticalDataService) { }
+  constructor(private dataService : DataService, private store : Store<State>) {
+    this.store.select('critical_sensors').subscribe( sensors => {
+      this.sensors = Object.values(sensors);
+   });
+  }
 
   ngOnInit() {
-    this.sensors = this.criticalService.geCriticalData();
+    this.store.dispatch(new GetCriticalSensorsRequested());
   }
 
 }

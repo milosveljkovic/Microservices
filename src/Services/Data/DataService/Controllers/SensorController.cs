@@ -70,7 +70,7 @@ namespace DataService.Controllers
         }
 
         [Route("[action]")]
-        [HttpGet]
+        [HttpPost]
         [ProducesResponseType(typeof(Sensor), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Sensor>>> GetSensorsBetweenDates([FromBody]Filter filter)
         {

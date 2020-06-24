@@ -2,7 +2,104 @@
   <h2 class="my-3 text-center">
     Dashboard
   </h2>
-  <div>
-    
+  <div class="mt-5">
+    <button class="btn btn-primary" (click)="open(content)">Filter sensors</button>
+    <div class="table-responsive">
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">PM2.5</th>
+            <th scope="col">PM10</th>
+            <th scope="col">SO2</th>
+            <th scope="col">NO2</th>
+            <th scope="col">CO</th>
+            <th scope="col">O3</th>
+            <th scope="col">Temperature</th>
+            <th scope="col">Pressure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sensor of sensors" >
+            <td scope="col">{{sensor.date | amDateFormat: 'DD-MM-YYYY HH:mm'}}</td>
+            <td scope="col">{{sensor.pM25}}</td>
+            <td scope="col">{{sensor.pM10}}</td>
+            <td scope="col">{{sensor.sO2}}</td>
+            <td scope="col">{{sensor.nO2}}</td>
+            <td scope="col">{{sensor.co}}</td>
+            <td scope="col">{{sensor.o3}}</td>
+            <td scope="col">{{sensor.temp}}</td>
+            <td scope="col">{{sensor.pres}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Filter sensor data</h4>
+    <button type="button" class="close" style="border:none; outline:none" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body px-5">
+  <div class='row'>
+    <div class="form-group mr-4">
+      <label>Date from:</label>
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" id='dateFrom'
+                (ngModel)="model" ngbDatepicker #d1="ngbDatepicker"
+                [positionTarget]="buttonEl" [formControl]='dateFrom'>
+        <div class="input-group-append">
+          <button #buttonEl class="btn btn-primary calendar" (click)="d1.toggle()" type="button">Open</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Date to:</label>
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" id='dateTo'
+                (ngModel)="model"ngbDatepicker #d2="ngbDatepicker"
+                [positionTarget]="buttonEl" [formControl]='dateTo'>
+        <div class="input-group-append">
+          <button #buttonEl class="btn btn-primary calendar" (click)="d2.toggle()" type="button">Open</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <label>PM 2.5:</label>
+        <input type="number" value="pm10" class="form-control" id="pm25" min=0 [formControl]="pm25">
+      </div>
+      <div class="col-4">
+        <label>PM 10:</label>
+        <input type="number" value="pm25" class="form-control" id="pm10" min=0 [formControl]="pm10">
+      </div>
+      <div class="col-4">
+        <label>CO:</label>
+        <input type="number" value="co" class="form-control" id="co" min=0 [formControl]="co">
+      </div>
+    </div>
+    <div class="row mt-2"> 
+      <div class="col-4">
+        <label>SO2:</label>
+        <input type="number" value="so2" class="form-control" id="so2" min=0 [formControl]="so2">
+      </div>
+      <div class="col-4">
+        <label>NO2:</label>
+        <input type="number" value="no2" class="form-control" id="no2" min=0 [formControl]="no2">
+      </div>
+      <div class="col-4">
+        <label>O3:</label>
+        <input type="number" value="o3" class="form-control" id="o3" min=0 [formControl]="o3">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="this.onClear()">Clear</button>
+  <button type="button" class="btn btn-success" (click)="this.onSubmit()">Save</button>
+</div>
+</ng-template>
