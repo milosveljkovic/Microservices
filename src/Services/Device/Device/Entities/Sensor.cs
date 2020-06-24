@@ -13,7 +13,6 @@ using Device.RabbitMQ;
 
 namespace Device.Entities
 {
-
     public enum CommunicationType
     {
         Http,
@@ -28,6 +27,10 @@ namespace Device.Entities
 
     public class Sensor : ISensor
     {
+        //private static readonly string DataURLURL = "http://localhost:5001/api/sensor";
+
+        //docker
+        private static readonly string DataURL = "http://172.17.0.1:5001/api/sensor";
         private StreamReader _streamReader;
         private List<SensorData> _sensorDataList;
         private int _sendPeriod;
@@ -43,9 +46,6 @@ namespace Device.Entities
 
         public Sensor()
         {
-            //PATH = .....\bin\Debug\netcoreapp3.1
-            string sensor_file_name = "sensor.txt";
-           // string path_to_sensor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sensor_file_name);
             string path_to_sensor="./sensor.txt";
             _streamReader = new StreamReader(path_to_sensor);
             _sensorDataList = new List<SensorData>();
@@ -74,14 +74,10 @@ namespace Device.Entities
                 {
                     if (_communicationType == CommunicationType.Http)
                     {
-                        //should put url in const! here should be url to Data Micoservice
-                        await PostRequst("http://localhost:5000/weatherforecast", _sensorData);
+                        await PostRequst(DataURL, _sensorData);
                     }
                     else
                     {
-                        //RABBITMQ
-                        //IMPORTANT: _sensorData properties should be PUBLIC!!!!!!
-                        Console.WriteLine("POST PUBLISH");
                         _publisher.SendMessage(_sensorData);
                         _previosSensorData = _sensorDataList[0];
                         _sensorDataList.RemoveAt(0);
@@ -155,10 +151,7 @@ namespace Device.Entities
                     SensorData _sensorData = getSensorDataFromWords(words);
                     if (_miAirPurifier.isOn) //by default is false!
                     {
-                        Console.WriteLine("Pre filtera" + _sensorData.C0);
                         _sensorData = getFilteredSensorData(_sensorData);
-                        Console.WriteLine("Posle filtera" + _sensorData.C0);
-
                     }
                     _sensorDataList.Add(_sensorData);
                     Console.WriteLine("Read every 1 sec, just read--->" + _sensorData);

@@ -20,7 +20,7 @@ namespace Device.RabbitMQ
             //this._factory = new ConnectionFactory();// { HostName = "localhost" };
             this._factory = new ConnectionFactory()
             {
-                HostName = "rabbitmq",
+               HostName = "rabbitmq",
                UserName = "user",
                Password = "password",
                Port = 5672
@@ -28,12 +28,10 @@ namespace Device.RabbitMQ
             this._connection = _factory.CreateConnection();
             this._channel = _connection.CreateModel();
             _channel.ExchangeDeclare(exchange: "device-data", type: ExchangeType.Fanout);
-            Console.WriteLine(" Press [enter] to exit.");
         }
 
         public void SendMessage(object o)
         {
-            //var body = Encoding.UTF8.GetBytes(test);
             var body = ObjectSerialize.Serialize(o); 
             this._channel.BasicPublish(exchange: "device-data",
                                  routingKey: "",

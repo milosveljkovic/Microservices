@@ -27,17 +27,6 @@ namespace Device.Controllers
             _publisher = publisher;
         }
 
-       
-        // POST api/<DeviceController>
-        [HttpPost]
-        public void Post()
-        {
-            //Period p = new Period();
-            //p.periodValue = 12340;
-            //Console.WriteLine("POST PUBLISH");
-           // _publisher.SendMessage(p);
-        }
-
         // POST api/device/setSensorSendPeriod
         [HttpPost("setSensorSendPeriod", Name = "setSensorSendPeriod")]
         public ActionResult setSensorSendPeriod([FromBody]Period _period)
@@ -72,7 +61,6 @@ namespace Device.Controllers
         [HttpPost("turnOnOff", Name = "turnOnOff")]
         public ActionResult turnOnOff([FromBody]int mode)
         {
-            Console.WriteLine("TurnOn Of" + mode);
             if (mode == 1 || mode == 0)
             {
                 _mySensor.turnOnOff(mode);
@@ -88,7 +76,6 @@ namespace Device.Controllers
         [HttpPost("setTreshold", Name = "setTreshold")]
         public ActionResult setTreshold([FromBody]int tresholdValue)
         {
-            Console.WriteLine("Treshold-"+tresholdValue);
             if (tresholdValue >0 && tresholdValue< 50)
             {
                 _mySensor.setTreshold(tresholdValue);
@@ -104,8 +91,6 @@ namespace Device.Controllers
         [HttpPost("turnOnOffMiAirPurifier", Name = "turnOnOffMiAirPurifier")]
         public ActionResult turnOnOffMiAirPurifier([FromBody]int isOn)
         {
-            //isOn-1 turnOn, isOn-0 turnOff
-            Console.WriteLine("turnOnOffMiAirPurifier-" + isOn);
             if (isOn==1)
             {
                 _mySensor.turnOnOffMiAirPurifier(true);
@@ -126,7 +111,6 @@ namespace Device.Controllers
         [HttpPost("setMiAirPurfierCleaningStrength", Name = "setMiAirPurfierCleaningStrength")]
         public ActionResult setMiAirPurfierCleaningStrength([FromBody]int cleaningStrength)
         {
-            Console.WriteLine("setMiAirPurfierCleaningStrength-" + cleaningStrength);
             if (cleaningStrength>=10 && cleaningStrength<=50)
             {
                 _mySensor.setMiAirPurfierCleaningStrength(cleaningStrength);

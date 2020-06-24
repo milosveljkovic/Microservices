@@ -118,7 +118,7 @@ namespace Command.Controllers
         // POST api/command/setTreshold
         [HttpPost("setTreshold", Name = "setTreshold")]
         public async Task<ActionResult> setTresholdAsync([FromBody] int _tresholdValue)
-        {   //mode 1 turnOn , mode 0 - turnOff
+        {  
             try
             {
                 using var httpResponse = await PostRequst(DeviceURL + "/setTreshold", _tresholdValue);
@@ -137,7 +137,6 @@ namespace Command.Controllers
             }
         }
 
-        //TO DO - TEST THIS WHEN ACTUATOR IS IMPLEMENTED
         // POST api/command/sendNotification
         [HttpPost("sendNotification", Name = "sendNotification")]
         public async Task<ActionResult> sendNotificationAsync([FromBody]Notification _notification)
@@ -185,7 +184,7 @@ namespace Command.Controllers
         // POST api/command/setMiAirPurfierCleaningStrength
         [HttpPost("setMiAirPurfierCleaningStrength", Name = "setMiAirPurfierCleaningStrength")]
         public async Task<ActionResult> setMiAirPurfierCleaningStrength([FromBody] int cleaningStrength)
-        {   //mode 1 turnOn , mode 0 - turnOff
+        {   
             try
             {
                 using var httpResponse = await PostRequst(DeviceURL + "/setMiAirPurfierCleaningStrength", cleaningStrength);
