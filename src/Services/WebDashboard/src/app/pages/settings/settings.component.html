@@ -36,6 +36,12 @@
             <button type="submit" class="btn btn-primary ml-2" [disabled]="!this.sensors_enabled" (click)="this.setTreshold(tresh.value)">Add</button>
           </div>
         </div>
+        <div *ngIf="this.error" class="alert alert-danger mt-2" role="alert">
+          *Writing speed must be greater than reading speed!
+        </div>
+        <div *ngIf="this.error_trashold" class="alert alert-danger mt-2" role="alert">
+          *Trashold value must be between 1 - 49!
+        </div>
     </div>
 
     <div class="col-5 pl-5">
@@ -52,6 +58,9 @@
           <input type="number" class="form-control" min="10" max="50" id="exampleInputEmail1" [disabled]="!this.xiaomi_enabled" [value]="this.settings.cleaningStrengthMiAirPurfier" #xiamoi>
         </div>
         <button type="submit" class="btn btn-secondary mt-2" [disabled]="!this.xiaomi_enabled" (click)="this.setXiaomiStrength(xiamoi.value)">Save</button>
+        <div *ngIf="this.error_xiaomi" class="alert alert-danger mt-3" role="alert">
+          *Cleaning strength  must be between 10 - 50!
+        </div>
     </div>
   </div>
 </div>

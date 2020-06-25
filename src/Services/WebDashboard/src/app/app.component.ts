@@ -26,14 +26,16 @@ export class AppComponent implements OnInit {
 
     this._connection.on('send', data => {
       this.sensor = data;
-      this.showCustomToast('PM2.5-'+this.sensor.pM25+'(ug/m^3) , PM10-'+this.sensor.pM10+'(ug/m^3)');
+      this.showCustomToast('PM2.5 - '+this.sensor.pM25+'(ug/m^3) , PM10 - '+this.sensor.pM10+'(ug/m^3)'
+      + ', SO2 - '+this.sensor.sO2+'(ug/m^3) , NO2 - '+this.sensor.nO2+'(ug/m^3)'
+      + ', CO - '+this.sensor.co+'(ug/m^3) , O3 - '+this.sensor.o3+'(ug/m^3)');
     })
   }
 
   showCustomToast(customTpl) {
     this.toastService.show(customTpl, {
       classname: 'bg-danger text-light',
-      delay: 6000,
+      delay: 7000,
       autohide: true,
       headertext: 'Critical!'
     });

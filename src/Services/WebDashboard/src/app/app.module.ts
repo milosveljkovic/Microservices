@@ -17,7 +17,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SettingsEffect } from './store/effects/settings.effects';
 import { SensorsEffects } from './store/effects/sensors.effects';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
