@@ -162,7 +162,7 @@ namespace Device.Entities
                 }
                 else
                 {
-                    Console.WriteLine("[Error] Some data property are invalid!");
+                    Console.WriteLine("[Error] Some data properties are invalid!");
                 }
 
             }
