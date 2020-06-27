@@ -126,8 +126,8 @@ namespace Device.Entities
                 return true;
             }
 
-            float co = (Math.Abs(_previosSensorData.C0) * _treshold) / 100;
-            if (Math.Abs(Math.Abs(_previosSensorData.C0) - Math.Abs(sd.C0)) < co)
+            float co = (Math.Abs(_previosSensorData.CO) * _treshold) / 100;
+            if (Math.Abs(Math.Abs(_previosSensorData.CO) - Math.Abs(sd.CO)) < co)
             {
                 return true;
             }
@@ -183,7 +183,7 @@ namespace Device.Entities
                 PM10 = Convert.ToInt32(sd.PM10 * filter),
                 SO2 = Convert.ToInt32(sd.SO2 * filter),
                 NO2 = Convert.ToInt32(sd.NO2 * filter),
-                C0 = Convert.ToInt32(sd.C0 * filter),
+                CO = Convert.ToInt32(sd.CO * filter),
                 O3 = Convert.ToInt32(sd.O3 * filter),
                 temp = sd.temp,
                 pres = sd.pres

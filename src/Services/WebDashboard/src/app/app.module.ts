@@ -27,7 +27,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     DashboardComponent,
     SettingsComponent,
     ToastComponent,
-    CriticalDataComponent,
+    CriticalDataComponent
   ],
   imports: [
     BrowserModule,

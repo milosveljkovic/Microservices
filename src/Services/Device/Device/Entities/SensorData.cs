@@ -12,7 +12,7 @@ namespace Device.Entities
         public int PM10;
         public int SO2;
         public int NO2;
-        public int C0;
+        public int CO;
         public int O3;
         public float temp;
         public float pres;
@@ -24,7 +24,7 @@ namespace Device.Entities
             this.PM10 = 0;
             this.SO2 = 0;
             this.NO2 = 0;
-            this.C0 = 0;
+            this.CO = 0;
             this.O3 = 0;
             this.temp = 0;
             this.pres = 0;
@@ -37,7 +37,7 @@ namespace Device.Entities
             this.PM10 = pm10;
             this.SO2 = so2;
             this.NO2 = no2;
-            this.C0 = c0;
+            this.CO = c0;
             this.O3 = o3;
             this.temp = temp;
             this.pres = pres;
