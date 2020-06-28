@@ -14,7 +14,6 @@ namespace DataService.RabbitMQ
 
         public Publisher()
         {
-            //zakoemntarisano je za docker
             //this._factory = new ConnectionFactory();// { HostName = "localhost" };
             this._factory = new ConnectionFactory()
             {

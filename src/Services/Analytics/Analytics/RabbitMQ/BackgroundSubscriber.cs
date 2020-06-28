@@ -42,7 +42,6 @@ namespace Analytics.RabbitMQ
 
         public void InitBackgroundDataSubscriber()
         {
-            //ovo sto je zakomentarisano je za docker
             //this._factory = new ConnectionFactory() { HostName = "localhost" }; //{ HostName = "rabbitmq", Port = 5672  };
             this._factory = new ConnectionFactory()
             {

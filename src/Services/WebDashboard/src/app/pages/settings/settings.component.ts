@@ -40,11 +40,11 @@ export class SettingsComponent implements OnInit {
   }
 
   turnOnOffSensor(val) {
-    this.settingService.turnOnOffSensor(val).subscribe(x=>console.log(x));;
+    this.settingService.turnOnOffSensor(val).subscribe(x=>console.log(x));
   }
 
   turnOnOffXiaomi(val) {
-    this.settingService.turnOnOffXiaomi(val).subscribe(x=>console.log(x));;
+    this.settingService.turnOnOffXiaomi(val).subscribe(x=>console.log(x));
   }
 
   setSendPeriod(val) {

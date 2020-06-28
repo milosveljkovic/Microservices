@@ -24,7 +24,7 @@ namespace Analytics.Data
             {
                 new Sensor()
                 {
-                    Date = new DateTime(),
+                    Date = new DateTime(2013,2,28,22,0,0),
                     PM25 = 443,
                     PM10 = 679,
                     SO2 = 80,
@@ -36,7 +36,7 @@ namespace Analytics.Data
                 },
                 new Sensor()
                 {
-                    Date = new DateTime(),
+                    Date = new DateTime(2013,2,28,23,0,0),
                     PM25 = 277,
                     PM10 = 461,
                     SO2 = 83,

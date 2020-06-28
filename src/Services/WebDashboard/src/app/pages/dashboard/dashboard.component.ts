@@ -161,12 +161,11 @@ export class DashboardComponent implements OnInit {
       this.sensors = Object.values(sensors);
       setTimeout(()=>{
         this.collectionSize = this.sensors.length;
-      },3000);
+      },300);
       if(this.sensors.length>0){
         let so2=[];let no2=[];let pm10=[];let pm25=[];let co=[];let o3=[];
         let i=0;
         for(i;i<this.sensors.length;i++){
-          console.log(this.sensors[i]);
           let so2_obj=[]; let pm25_obj=[];let pm10_obj=[];let no2_obj=[];let co_obj=[];let o3_obj=[];
           let currentDate=new Date(this.sensors[i].date);
           let date=moment(currentDate).valueOf();

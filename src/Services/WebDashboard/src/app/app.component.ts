@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   showCustomToast(customTpl) {
     this.toastService.show(customTpl, {
       classname: 'bg-danger text-light',
-      delay: 7000,
+      delay: 8000,
       autohide: true,
       headertext: 'Critical!'
     });
