@@ -27,7 +27,7 @@
     "@ngrx/store-devtools": "^9.2.0",
     "angular-highcharts": "^9.0.11",
     "bootstrap": "^4.5.0",
-    "highcharts": "^8.1.2",
+    "highcharts": "^9.0.0",
     "moment": "^2.27.0",
     "ngx-moment": "^4.0.1",
     "rxjs": "~6.5.4",
